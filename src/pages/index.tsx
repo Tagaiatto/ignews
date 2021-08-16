@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { GetStaticProps} from "next";
+import { GetStaticProps } from "next";
 import { SubscribeButton } from "../components/SubscribeButton";
 
 import styles from "./home.module.scss";
@@ -8,17 +8,17 @@ import { stripe } from "../services/stripe";
 interface HomeProps {
   product: {
     priceId: string;
-    amount: number;
+    amount: string;
   }
 }
 
-export default function Home({product}: HomeProps) {
+export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
         <title>Home | ig.news</title>
       </Head>
-      
+
       <main className={styles.contentContainer}>
         <section className={styles.hero}>
           <span>👏 Hey, welcome!</span>
@@ -39,8 +39,8 @@ export default function Home({product}: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const price = await stripe.prices.retrieve('price_1ItBtXLqT4q66fiuakeQl311', {
-     expand: ['product'] 
-    }
+    expand: ['product']
+  }
   )
 
   const product = {
